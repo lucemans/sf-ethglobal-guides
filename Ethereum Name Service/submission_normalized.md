@@ -135,5 +135,5 @@ For the latest news and updates about the ENS Ecosystem.
 
 For our archive of Articles.
 
-![More Comming Soon](./assets/ens_construction.png)
+![More Coming Soon](./assets/ens_construction.png)
 
