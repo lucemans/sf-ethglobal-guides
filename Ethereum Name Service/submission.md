@@ -21,7 +21,7 @@ However ENS provides tons of cool functionality, this guide will focus on integr
 
 ## ENS Registration
 
-Names can be registered through the [ENS Manager](https://app.ens.domains/), third-party applications (such as [ENS Fairy], [Coinbase](https://www.coinbase.com/), or [Rainbow](https://rainbow.me/)), or directly on-chain.
+Names can be registered through the [ENS Manager](https://app.ens.domains/), third-party applications (such as [ENS Fairy](https://ensfairy.xyz/), [Coinbase](https://www.coinbase.com/), or [Rainbow](https://rainbow.me/)), or directly on-chain.
 
 <Quiz id={"???"} />
 
