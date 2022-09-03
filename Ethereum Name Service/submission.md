@@ -35,23 +35,21 @@ ENS Allows you to use human-readable names like 'alice.eth' in place of machine-
 
 ## Name Resolution
 
-The most common use-case of ENS is found in the dApp space. Due to the `reverse resolution` abilities of the ENS contract dApps can fetch a user's preferred ENS name and show this in their interface.
+The most common use-case of ENS is found in the dApp space. Due to the **reverse resolution** abilities of the ENS contract dApps can fetch a user's preferred ENS name and show this in their interface.
 
 ![ENS Username & Avatar](./assets/ens_username_avatar.png)
 
 ## Subdomains
 
-ENS allows subdomains to be created and distributed as NFTs and controlled by smart contracts. You can extend the behaviour of domains by altering the `Resolver` field of the domain and pointing it towards your smart contract. Read more about [writing your own resolver](https://docs.ens.domains/contract-developer-guide/writing-a-resolver)
+ENS allows subdomains to be created and distributed as NFTs and controlled by smart contracts. You can extend the behaviour of domains by altering the **Resolver** field of the domain and pointing it towards your smart contract. Read more about [writing your own resolver](https://docs.ens.domains/contract-developer-guide/writing-a-resolver)
 
 ![ENS Subdomains](./assets/ens_subdomains.png)
 
 ## Internet Domain Compatability
 
-In addition to the smart contract powered `.eth` TLD, the ENS smart contracts allow for any Internet Domain (.com, .net, .org, etc) to be used as an ENS Name through the use of our DNSSEC Integration. Read more about [ID Compatability](https://docs.ens.domains/dns-registrar-guide).
+In addition to the smart contract powered **.eth** TLD, the ENS smart contracts allow for any Internet Domain (.com, .net, .org, etc) to be used as an ENS Name through the use of our DNSSEC Integration. Read more about [ID Compatability](https://docs.ens.domains/dns-registrar-guide).
 
 ![Internet Domain Compatability](./assets/ens_internet_compatability.png)
-
-For a list of all DNSSEC Enabled 
 
 ## Offchain Data
 
@@ -90,9 +88,49 @@ With the help of your favourite library such as [Ethers](https://docs.ethers.io/
 
 It's that easy! Now your dApp is ready to show everyone's names everywhere! And don't forget to fallback to addresses when the user doesn't have a name.
 
+#### React Example
+
+Below is an example snippet of what this would look like using [wagmi](https://wagmi.sh/docs/hooks/useEnsName).
+
+```tsx
+import { useAccount, useEnsAvatar, useEnsName } from 'wagmi';
+
+const shortenAddress = (address) => `${address.substr(0, 5)}...${address.substr(-4)}`;
+
+export const UserProfile = () => {
+    const { address } = useAccount();
+    const { data: name, isSuccess: isNameSuccess } = useEnsName({ address });
+    const { data: avatar, isSuccess: isAvatarSuccess } = useEnsAvatar({
+        addressOrName: address,
+    });
+
+    return (
+        <div>
+            <div>
+                {isAvatarSuccess && avatar ? (
+                    <img src={avatar} />
+                ) : (
+                    <img src="" />
+                )}
+            </div>
+            <div>
+                {isNameSuccess && name ? (
+                    <div>
+                        <span>{name}</span>
+                        <span>{shortenAddress(address)}</span>
+                    </div>
+                ) : (
+                    <div>{address}</div>
+                )}
+            </div>
+        </div>
+    );
+};
+```
+
 ## Retrieving Address from Name
 
-You may however want users to be able to search for eachother, mention one another, or even challenge eachother to a game of tic tac to. Now should this be the case there is the `resolveName` functionality that allows you to enter any valid ENS name and get back the address.
+You may however want users to be able to search for eachother, mention one another, or even challenge eachother to a game of tic tac to. Now should this be the case there is the **resolveName** functionality that allows you to enter any valid ENS name and get back the address.
 
 ![Address Resolution & Lookup Example](./assets/ens_address_resolution.png)
 
