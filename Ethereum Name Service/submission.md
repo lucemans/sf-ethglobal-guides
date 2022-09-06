@@ -35,13 +35,15 @@ ENS Allows you to use human-readable names like 'alice.eth' in place of machine-
 
 ## Name Resolution
 
-The most common use-case of ENS is found in the dApp space. Due to the **reverse resolution** abilities of the ENS contract dApps can fetch a user's preferred ENS name and show this in their interface.
+At its core ENS allows us to convert a human-readable name like **nick.eth** into a machine-readable address such as **0xb8c2C29ee19D8307cb7255e1Cd9CbDE883A267d5**. This is generally referred to as **forwards resolution**.
+
+The most common place you will notice your own ENS name is in dApps. Due to the Primary Name (aka **reverse resolution**) abilities of the ENS contracts dApps can fetch a user's primary name and show this in their interface. This allows us to give users the same profile across the entire ecosystem.
 
 ![ENS Username & Avatar](./assets/ens_username_avatar.png)
 
-## Subdomains
+## Subdomains & Custom Resolver
 
-ENS allows subdomains to be created and distributed as NFTs and controlled by smart contracts. You can extend the behaviour of domains by altering the **Resolver** field of the domain and pointing it towards your smart contract. Read more about [writing your own resolver](https://docs.ens.domains/contract-developer-guide/writing-a-resolver)
+ENS allows users to write their own resolver in the form of a smart contract. You can extend the behaviour of domains by altering the **Resolver** field of your domain and pointing it towards your smart contract. This means you could write your own logic to control records, subdomains, and do all sorts of things like assign subdomains to NFT holders, or anything you could image. Read more about [writing your own resolver](https://docs.ens.domains/contract-developer-guide/writing-a-resolver).
 
 ![ENS Subdomains](./assets/ens_subdomains.png)
 
@@ -53,7 +55,7 @@ In addition to the smart contract powered **.eth** TLD, the ENS smart contracts 
 
 ## Offchain Data
 
-With the recent implementation of CCIP Read (Also known as [EIP-3668](https://eips.ethereum.org/EIPS/eip-3668) or 'durin') we are able to read data from other chains or from other external locations. This enables us to have name information controlled by for example layer 2's, rollups, other chains, and centralized servers. More information about ENS and L2 Support can be found in the [ENS Layer2 and offchain data support
+With the recent implementation of CCIP Read (Also known as [EIP-3668](https://eips.ethereum.org/EIPS/eip-3668)) we are able to read data from other chains or from other external locations. This enables us to have name information controlled by for example layer 2's, rollups, other chains, and centralized servers. More information about ENS and L2 Support can be found in the [ENS Layer2 and offchain data support
 ](https://docs.ens.domains/dapp-developer-guide/ens-l2-offchain).
 
 ![ENS Offchain](./assets/ens_offchain.png)
@@ -62,23 +64,76 @@ With the recent implementation of CCIP Read (Also known as [EIP-3668](https://ei
 
 <Quiz id={"???"} />
 
-Insert control question about ENS here
-- Answer 1[✅]
-- Answer 2
-- Answer 3
-- Answer 4
+ENS is compatible with DNS adding functionality to Internet Domains.
+- True [✅]
+- False
 
 <Quiz id={"???"} />
 
-Insert control question about ENS here
-- Answer 1[✅]
-- Answer 2
-- Answer 3
-- Answer 4
+Which statement is correct?
+- ENS allows for multi-chain address and Offchain resolution [✅]
+- ENS only works with Ethereum Addresses and data on Ethereum
 
 </Section>
 
-<Section name="3. Integrate ENS" description="Integrate ENS into your Project">
+<Section name="3. Registering an ENS" description="Getting your ">
+
+## How to register
+Registering your first ENS name is super easy through the use of the [ENS Manager](http://app.ens.domains/).
+
+![Search your Name](./assets/ens_search_your_name.png)
+
+Once you arrive at the name's page and the name is available. (Checkout the **register** tab). You should see a live calculation of the costs for registering that name. Names with fewer then 5 characters, and recently expired names have different costs. For more information on registration costs, check our [FAQ](https://docs.ens.domains/permanent-registrar-faq#how-much-will-the-yearly-renewals-cost).
+
+![](./assets/ens_register_1.png)
+
+Once you click the **Request to Register** button and confirm the transaction the manager will reserve the name for you. After this you will need to wait for one minute. This is done to protect you from frontrunning and ensures you get the name you desired.
+
+![](./assets/ens_register_2.png)
+
+![](./assets/ens_register_3.png)
+
+![](./assets/ens_register_4.png)
+
+Great! Our name is now reserved for our second transaction. You can now click the **Register** button to complete the registration process.
+
+![](./assets/ens_register_5.png)
+
+**Congratulations!** 🎉 You now own an ENS name! To set it as your **Primary Name** click the **"Set As Primary ENS Name"** button and follow the steps.
+
+## How to set Avatar
+
+To set your avatar you can go to the [ENS Manager](https://app.ens.domains/) and select the name you would like to set an **Avatar** for.
+
+Now you are on the page simply hit **ADD/EDIT RECORD** and scroll down to the **avatar** field.
+
+![](./assets/ens_avatar_1.png)
+
+### The Avatar Field
+
+The Avatar Field can be filled with a variety of different types of text. In the example below I am uploading an **IPFS** link (using **ipfs://**), however you could also use **Arweave**, a link to an NFT (using [CAIP-29](https://github.com/ChainAgnostic/CAIPs/blob/master/CAIPs/caip-29.md)), base64 image, or any regular **HTTP(S)** url will do.
+
+![](./assets/ens_avatar_2.png)
+
+### Question
+
+<Quiz id={"???"} />
+
+Jimmy Fallon (fallon.eth) has an NFT from what collection as his profile picture?
+- Bored Ape Yacht Club [✅]
+- Cryptopunks
+- Mutant Ape Yacht Club
+- CryptoKitties
+
+<Quiz id={"???"} />
+
+ENS Domains are controlled by smart contracts and registration is stored on chain.
+- True [✅]
+- False
+
+</Section>
+
+<Section name="4. Integrate ENS" description="Integrate ENS into your Project">
 
 ## Resolving ENS names for Users
 
@@ -130,7 +185,7 @@ export const UserProfile = () => {
 
 ## Retrieving Address from Name
 
-You may however want users to be able to search for eachother, mention one another, or even challenge eachother to a game of tic tac to. Now should this be the case there is the **resolveName** functionality that allows you to enter any valid ENS name and get back the address.
+You may however want users to be able to search for each other, mention one another, or even challenge each other to a game of tic tac to. Now should this be the case there is the **resolveName** functionality that allows you to enter any valid ENS name and get back the address.
 
 ![Address Resolution & Lookup Example](./assets/ens_address_resolution.png)
 
@@ -138,19 +193,11 @@ You may however want users to be able to search for eachother, mention one anoth
 
 <Quiz id={"???"} />
 
-Insert control question about ENS here
-- Answer 1[✅]
-- Answer 2
-- Answer 3
-- Answer 4
-
-<Quiz id={"???"} />
-
-Insert control question about ENS here
-- Answer 1[✅]
-- Answer 2
-- Answer 3
-- Answer 4
+What address does vitalik.eth resolve to?
+- 0xd8da6bf26964af9d7eed9e03e53415d37aa96045 [✅]
+- 0xb8c2c29ee19d8307cb7255e1cd9cbde883a267d5
+- 0x225f137127d9067788314bc7fcc1f36746a3c3b5
+- 0x5a384227b65fa093dec03ec34e111db80a040615
 
 </Section>
 
@@ -158,9 +205,17 @@ Insert control question about ENS here
 
 ## ENS Developer Resources
 
+### [Quickstart](https://docs.ens.domains/dapp-developer-guide/ens-enabling-your-dapp)
+
+Everything you need to know to get started implementing ENS in your dApp.
+
 ### [Docs](https://docs.ens.domains)
 
 Your go-to location for protocol information and examples.
+
+### [Metadata Service](https://metadata.ens.domains/docs)
+
+Metadata service that allows for fetching data .
 
 ### [Libraries](https://docs.ens.domains/dapp-developer-guide/ens-libraries)
 - [Ethers](https://docs.ethers.io/v5/api/providers/provider/#Provider--ens-methods)
@@ -171,8 +226,6 @@ Your go-to location for protocol information and examples.
 - [KEthereum](https://github.com/komputing/KEthereum/tree/master/ens)
 - [web3.py](https://web3py.readthedocs.io/en/stable/ens_overview.html)
 - [go-ens](https://github.com/wealdtech/go-ens)
-
-Your Favourite Libraries
 
 ### [Mirror](https://ens.mirror.xyz/)
 
